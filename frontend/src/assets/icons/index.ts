@@ -1,0 +1,37 @@
+export { default as NotFoundPage } from './common/404.png';
+export { default as ArrowDownMenuIcon } from './common/arrow-down-menu-icon.svg';
+export { default as PenIcon } from './common/Edit.svg';
+export { default as ForwardArrow } from './common/Forward Arrow.svg';
+export { default as MoreIcon } from './common/more-icon.svg';
+export { default as NoResultIcon } from './common/no-results-icon.svg';
+export { default as NonTierBackground } from './common/non-tier-background.svg';
+export { default as RedirectIcon } from './common/redirect-icon.svg';
+export { default as ArrowDownLimitOrderIcon } from './exchange/arrow-down-limit-order-icon.svg';
+export { default as TooltipIcon } from './exchange/tooltip-icon.svg';
+
+//Header official version
+export { default as ArrowDownIcon } from './common/arrow-down-icon.svg';
+export { default as ArrowUpIcon } from './exchange/arrow-up-icon.svg';
+export { default as BinanceSmallIcon } from './exchange/binance-icon.svg';
+export { default as GasBenefit } from './exchange/gas-benefit.png';
+export { default as HyperLiquidSmallIcon } from './exchange/hyperliquid-icon.svg';
+export { default as UniSmallIcon } from './exchange/uni-icon.svg';
+export { default as VirtualSmallIcon } from './exchange/virtual-icon.svg';
+export { default as AlertIcon } from './header/alert-icon.svg';
+export { default as NetworkIcon } from './header/bsc-network-icon.svg';
+export { default as CopyIcon } from './header/copy-icon.svg';
+export { default as DarkModeIcon } from './header/dark-mode-icon-ver-2.svg';
+export { default as DropDownIconBlack } from './header/dropdown-icon-black.svg';
+export { default as DropDownIcon } from './header/dropdown-icon.svg';
+export { default as ExchangeIcon } from './header/exchange-icon.svg';
+export { default as HomeIcon } from './header/home-icon.svg';
+export { default as DarkThemeIcon } from './header/icon-dark-theme.svg';
+export { default as LightThemeIcon } from './header/icon-light-theme.svg';
+export { default as LightModeIcon } from './header/light-mode-icon-ver-2.svg';
+export { default as LogoutIcon } from './header/logout-icon.svg';
+export { default as NotificationsIcon } from './header/notifications-icon.svg';
+export { default as ProfileIcon } from './header/profile-icon.svg';
+export { default as RedirectWalletIcon } from './header/redirect-icon.svg';
+export { default as SettingIcon } from './header/settings-icon.svg';
+export { default as VirtualIcon } from './header/virtual-logo.svg';
+export { default as WalletIcon } from './header/wallet-icon-official.svg';
