@@ -1,57 +1,26 @@
 import React, { useState } from 'react';
 import Slider from "react-slick";
-import { Box, Typography, styled, IconButton } from '@mui/material';
+import { Box, Typography, styled, IconButton, Button } from '@mui/material';
 import { ChevronLeft, ChevronRight } from '@mui/icons-material';
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
 import { Badge } from '../../types/badge.type';
 import ActionCards from './ActionCards/ActionCards';
+import CarouselCard from '../Cards/CarouselCard';
 
-const CarouselItem = styled(Box)<{ isActive: boolean }>(({ theme, isActive }) => ({
-  transition: 'all 0.3s ease',
-  opacity: isActive ? 1 : 0.5,
-  transform: isActive ? 'scale(1.1)' : 'scale(0.9)',
-  textAlign: 'center',
-  '& .badge-icon': {
-    width: 60,
-    height: 60,
-    margin: '0 auto 16px',
-    borderRadius: '50%',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    background: theme.palette.background.paper,
-  },
-  '& .badge-title': {
-    color: theme.palette.text.primary,
-    marginBottom: 4,
-  },
-  '& .badge-subtitle': {
-    color: theme.palette.text.secondary,
-    marginBottom: 8,
-  },
-  '& .badge-points': {
-    color: theme.palette.success.main,
-  },
-}));
 
-const ArrowButton = styled(IconButton)(({ theme }) => ({
+const ArrowButton = styled(Button)(({ theme }) => ({
     position: 'absolute',
-    top: '50%',
-    transform: 'translateY(-50%)',
+    height: '100%',
+    borderRadius: '32px',
     zIndex: 1,
-    color: theme.palette.text.primary,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    '&:hover': {
-      backgroundColor: 'rgba(0, 0, 0, 0.7)',
-    },
   }));
   
   const PrevArrow = (props: any) => {
     const { onClick } = props;
     return (
-      <ArrowButton onClick={onClick} sx={{ left: -20 }}>
-        <ChevronLeft />
+      <ArrowButton onClick={onClick} className='!bg-elevation1 '>
+        <ChevronLeft className="!w-10 !h-10 !text-text-primary "/>
       </ArrowButton>
     );
   };
@@ -59,8 +28,8 @@ const ArrowButton = styled(IconButton)(({ theme }) => ({
   const NextArrow = (props: any) => {
     const { onClick } = props;
     return (
-      <ArrowButton onClick={onClick} sx={{ right: -20 }}>
-        <ChevronRight />
+      <ArrowButton onClick={onClick} sx={{ right: 0 }} className='top-[0%] !bg-elevation1'>
+        <ChevronRight className="!w-10 !h-10 !text-text-primary "/>
       </ArrowButton>
     );
   };
@@ -104,37 +73,40 @@ const BadgeCarousel: React.FC<{ badges: Badge[] }> = ({ badges }) => {
   
   
     return (
-      <Box sx={{ my: 4, px: 2, position: 'relative' }}>
+      <Box sx={{ my: 4, px: 2, position: 'relative' }} className='bg-elevation3 rounded-[8px] pt-2'>
         <Typography variant="h6" gutterBottom sx={{ mb: 3 }}>
           Badges
         </Typography>
         <Slider {...settings}>
           {badges.map((badge, index) => (
-            <CarouselItem key={index} isActive={index === activeSlide}>
-              <div className="badge-icon">
-                {badge.icon}
-              </div>
-              <Typography variant="subtitle1" className="badge-title">
-                {badge.title}
-              </Typography>
-              <Typography variant="body2" className="badge-subtitle">
-                {badge.description}
-              </Typography>
-              <Typography variant="body2" className="badge-points">
-                {badge.points}
-              </Typography>
-            </CarouselItem>
+           <CarouselCard key={index} badge={badge} isActive={index == activeSlide} />
           ))}
         </Slider>
-        <ActionCards actions={activeBadge.actions} title={activeBadge.description} />
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 2, color: 'text.secondary' }}>
-          <Typography variant="body2">
-            How to Earn: Complete the actions for the badge, no specific order needed.
-          </Typography>
-          <Typography variant="body2">
-            1/3 Completed&nbsp;&nbsp;&nbsp;Total Earnings: 3,000
-          </Typography>
+        <Box className='flex justify-between items-center mt-2'>
+          <Box className='flex'>
+            <Typography variant="body2" className='text-text-primary'>
+              How to Earn:
+            </Typography>
+            <Typography variant="body2" className='text-text-secondary text-left !ml-1'>
+              Complete the action for the badge, no specific order
+            </Typography>
+          </Box>
+          <Box  className='text-right flex text-text-primary' >
+            <Box className='mr-1 bg-elevation1 pl-2 pr-2 text-center rounded-[16px]'>
+            <Typography variant="body2" className='text-text-secondary'>
+              {completedActions}/{totalActions} completed
+            </Typography>
+            </Box>
+            <Box>
+            <Typography variant="body2" className='mr-1 bg-success-elevation pl-2 pr-2 text-center rounded-[16px]'>
+              Total Earnings: {activeBadge.points}
+            </Typography>
+            </Box>
+
+          </Box>
         </Box>
+        <ActionCards actions={activeBadge.actions} title={activeBadge.description} />
+        
       </Box>
 
 

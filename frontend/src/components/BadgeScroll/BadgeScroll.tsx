@@ -2,53 +2,26 @@ import React from 'react';
 import { Box, Card, CardContent, Typography, IconButton, Tooltip } from '@mui/material';
 import { ChevronLeft, ChevronRight } from '@mui/icons-material';
 import { Badge } from '../../types/badge.type';
-import BadgeCard from './BadgeCard';
+import BadgeCard from '../Cards/BadgeCard';
 
 type BadgeScrollProp = {
     badges: Badge[];
 };
 
 const BadgeScroll: React.FC<BadgeScrollProp> = ({ badges } : BadgeScrollProp) => {
-    const scrollRef = React.useRef<HTMLDivElement | null>(null);
-  
-    const scroll = (scrollOffset: number) => {
-      if (scrollRef.current) {
-        scrollRef.current.scrollLeft += scrollOffset;
-      }
-    };
+   
   
     return (
-      <Box sx={{ position: 'relative', my: 4 }}>
-        <Typography variant="h6" gutterBottom>
+      <Box sx={{ position: 'relative' }} className="!mb-[6rem] bg-elevation1 rounded-[8px]">
+        <Typography variant="body1" className='pt-2 pl-2'>
           Community Badges
         </Typography>
-        <Box
-          ref={scrollRef}
-          sx={{
-            display: 'flex',
-            overflowX: 'auto',
-            scrollBehavior: 'smooth',
-            '&::-webkit-scrollbar': { display: 'none' },
-            msOverflowStyle: 'none',
-            scrollbarWidth: 'none',
-          }}
-        >
+        <Box className='flex overflow-x-auto p-2 custom-scrollbar' >
           {badges.map((badge, index) => (
-            <BadgeCard key={index} {...badge} />
+            <BadgeCard badge={badge} isActive={false} />
           ))}
         </Box>
-        <IconButton
-          sx={{ position: 'absolute', left: 0, top: '50%', transform: 'translateY(-50%)' }}
-          onClick={() => scroll(-200)}
-        >
-          <ChevronLeft />
-        </IconButton>
-        <IconButton
-          sx={{ position: 'absolute', right: 0, top: '50%', transform: 'translateY(-50%)' }}
-          onClick={() => scroll(200)}
-        >
-          <ChevronRight />
-        </IconButton>
+        
       </Box>
     );
   };

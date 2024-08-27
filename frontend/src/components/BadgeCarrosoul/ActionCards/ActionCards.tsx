@@ -30,10 +30,9 @@ const ActionCard = styled(Card)(({ theme }) => ({
     bottom: 0,
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    textAlign: 'center',
-    padding: '16px',
+    
+   
+    padding: 0
   });
 type Props = {
     actions: Action[];
@@ -43,6 +42,7 @@ type Props = {
 const ScrollableContainer = styled(Box)(({ theme }) => ({
     display: 'flex',
     overflowX: 'auto',
+    marginTop: '10px',
     scrollbarWidth: 'none', // For Firefox
     '&::-webkit-scrollbar': {
       display: 'none', // For Chrome, Safari, and Opera
@@ -65,24 +65,29 @@ const ActionCardsScroll: React.FC<Props> = (props: Props) => {
 
 
     return (
-        <Box >
-            <Typography variant="h6" gutterBottom>
-                {props.title} Actions
-            </Typography>
-           
-            
+        <Box className='pb-2'>
             <ScrollableContainer>
             {props.actions.map((action, index) => (
                 <ActionCard key={index}>
-                <ActionContent>
-                    <Typography variant="body2" color="text.secondary" gutterBottom>
-                    Action {index + 1}
+                <ActionContent className="text-text-secondary rounded-[8px]">
+                   <Box className="bg-elevation1 w-[100%] pt-1 pb-1 pl-2 flex justify-between text-left rounded-t-[inherit] ">
+                   <Typography variant="body2" >
+                    Action
                     </Typography>
-                   <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
-                   <Typography variant="body1" sx={{ mb: 2 }}>
+                    {
+                    action.completeStatus ? (
+                      <Box className='bg-success-elevation text-right text-text-success text-xs mr-2 p-1 rounded-[16px] w-fit' >
+                        Completed
+                      </Box>
+                    ) : <></>
+                   }
+                   </Box>
+                   
+                   <Box sx={{ display: 'flex', justifyContent: 'center'}}>
+                   <Typography className="!ml-1 mt-1 !text-sm">
                     {action.description}
                     </Typography>
-                    {action.completeStatus && <Check color="success" />}
+                    
                     </Box>
                 </ActionContent>
                 </ActionCard>

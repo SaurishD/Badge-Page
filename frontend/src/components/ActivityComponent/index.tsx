@@ -4,7 +4,7 @@ import { dummyActivities } from './ActivityGrid/DummyActivityData';
 
 const LastActivities: React.FC = () => {
     return (
-        <div>
+        <div className="bg-primary-background min-h-screen text-text-primary">
             <ActivityGrid activities={dummyActivities}/>
         </div>
     );

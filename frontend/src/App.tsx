@@ -16,9 +16,11 @@ const AppRoute = () => {
 
 function App() {
   return (
-   <BrowserRouter>
+   <div className='min-h-screen bg-primary-background'>
+    <BrowserRouter>
     <AppRoute/>
    </BrowserRouter>
+   </div>
   );
 }
 

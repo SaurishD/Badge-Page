@@ -12,10 +12,9 @@ interface LayoutProps {
     return (
       <>
         <AppHeader />
-        <Container>{children}</Container>
-        <div style={{ position: "fixed", bottom: 0, width: "100%" }}>
+        <Container className="bg-primary-background text-text-primary">{children}</Container>
           <AppFooter />
-        </div>
+
       </>
     );
   }

@@ -11,7 +11,8 @@ import {
   Paper, 
   IconButton, 
   Typography,
-  Box
+  Box,
+  styled
 } from '@mui/material';
 import { SwapVert, ContentCopy } from '@mui/icons-material';
 import { Activity } from './DummyActivityData';
@@ -20,28 +21,46 @@ type ActivityGridProps = {
     activities: Activity[];
 }
 
+const StyledTableContainer = styled(TableContainer)(({ theme }) => ({
+  color: theme.palette.text.primary, // Or use your custom color
+  '& .MuiTableCell-root': {
+    color: 'inherit',
+  },
+}));
+
+const StyledTable = styled(Table)(({ theme }) => ({
+  '& .MuiTableCell-root': {
+    borderBottom: 'none',
+  },
+  '& .MuiTableRow-root': {
+    '&:last-child td, &:last-child th': {
+      border: 0,
+    },
+  },
+}));
+
 const ActivityGrid: React.FC<ActivityGridProps> = ({ activities } : ActivityGridProps) => {
   return (
-    <Box sx={{ bgcolor: 'background.paper', color: 'text.primary', borderRadius: 2, p: 3 }}>
+    <Box  sx={{ borderRadius: 3, p: 3 }} >
       <Typography variant="h6" gutterBottom component="div">
         Last Activities
       </Typography>
-      <TableContainer component={Paper} sx={{ bgcolor: 'background.paper' }}>
-        <Table sx={{ minWidth: 650 }} aria-label="activity table">
-          <TableHead>
+      <StyledTableContainer className='rounded-[8px]'>
+        <StyledTable sx={{ minWidth: 650 }} aria-label="activity table" >
+          <TableHead className='bg-elevation1 text-text-secondary'>
             <TableRow>
-              <TableCell>Activities</TableCell>
+              <TableCell >Activities</TableCell>
               <TableCell align="right">Points</TableCell>
               <TableCell align="right">Date</TableCell>
               <TableCell align="right">TXID</TableCell>
             </TableRow>
           </TableHead>
-          <TableBody>
+          <TableBody className='text-text-primary'>
             {activities.map((activity, index) => (
+
               <TableRow
                 key={index}
-                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-              >
+              className={index%2 ? 'bg-elevation3' : 'bg-elevation2'}>
                 <TableCell component="th" scope="row">
                   <Box sx={{ display: 'flex', alignItems: 'center' }}>
                     {activity.type === 'Transaction' ? (
@@ -52,7 +71,7 @@ const ActivityGrid: React.FC<ActivityGridProps> = ({ activities } : ActivityGrid
                     {activity.type}
                   </Box>
                 </TableCell>
-                <TableCell align="right" sx={{ color: 'success.main' }}>+{activity.points}</TableCell>
+                <TableCell align="right"  className='!text-right' ><Box className='bg-success-elevation p-1 text-text-success rounded-[16px] w-fit'>+{activity.points}</Box></TableCell>
                 <TableCell align="right">{activity.date}</TableCell>
                 <TableCell align="right">
                   <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>
@@ -65,8 +84,8 @@ const ActivityGrid: React.FC<ActivityGridProps> = ({ activities } : ActivityGrid
               </TableRow>
             ))}
           </TableBody>
-        </Table>
-      </TableContainer>
+        </StyledTable>
+      </StyledTableContainer>
     </Box>
   );
 };
