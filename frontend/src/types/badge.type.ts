@@ -7,7 +7,6 @@ type Badge = {
   };
 
   type Action = {
-    name: string;
     description: string;
     completeStatus: boolean;
   };

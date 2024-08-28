@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Slider from "react-slick";
 import { Box, Typography, styled, IconButton, Button } from '@mui/material';
 import { ChevronLeft, ChevronRight } from '@mui/icons-material';
@@ -37,6 +37,9 @@ const ArrowButton = styled(Button)(({ theme }) => ({
 
 const BadgeCarousel: React.FC<{ badges: Badge[] }> = ({ badges }) => {
     const [activeSlide, setActiveSlide] = useState(0);
+    useEffect(() => {
+      console.log("BadgeCarousel", badges);
+    } , []);
 
     const settings = {
       className: "center",
@@ -67,9 +70,9 @@ const BadgeCarousel: React.FC<{ badges: Badge[] }> = ({ badges }) => {
     };
   
     const activeBadge = badges[activeSlide];
-    const completedActions = activeBadge.actions.filter(action => action.completeStatus).length;
-    const totalActions = activeBadge.actions.length;
-    const progress = (completedActions / totalActions) * 100;
+    const completedActions = activeBadge ? activeBadge.actions.filter(action => action.completeStatus).length : 0;
+    const totalActions = activeBadge ? activeBadge.actions.length :0;
+    // const progress = (completedActions / totalActions) * 100;
   
   
     return (
@@ -99,13 +102,13 @@ const BadgeCarousel: React.FC<{ badges: Badge[] }> = ({ badges }) => {
             </Box>
             <Box>
             <Typography variant="body2" className='mr-1 bg-success-elevation pl-2 pr-2 text-center rounded-[16px]'>
-              Total Earnings: {activeBadge.points}
+              Total Earnings: {activeBadge ? activeBadge.points: 0}
             </Typography>
             </Box>
 
           </Box>
         </Box>
-        <ActionCards actions={activeBadge.actions} title={activeBadge.description} />
+        <ActionCards actions={activeBadge ? activeBadge.actions : []} title={activeBadge? activeBadge.description : 'Loading'} />
         
       </Box>
 
