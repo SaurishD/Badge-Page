@@ -22,12 +22,14 @@ services:
       HASURA_GRAPHQL_ENABLE_CONSOLE: "true" # set to "false" to disable console
       ## enable debugging mode. It is recommended to disable this in production
       HASURA_GRAPHQL_DEV_MODE: "true"
+      HASURA_GRAPHQL_ENABLE_WEBSOCKET: "true"
       HASURA_GRAPHQL_ENABLED_LOG_TYPES: startup, http-log, webhook-log, websocket-log, query-log
+      HASURA_GRAPHQL_ENABLE_TELEMETRY: "true"
       ## uncomment next line to run console offline (i.e load console assets from server instead of CDN)
       # HASURA_GRAPHQL_CONSOLE_ASSETS_DIR: /srv/console-assets
       ## uncomment next line to set an admin secret
       # HASURA_GRAPHQL_ADMIN_SECRET: ${HASURA_GRAPHQL_ADMIN_SECRET}
-      HASURA_GRAPHQL_CORS_DOMAIN: "http://localhost:3000,http://localhost:8080,http://localhost:3001"
+      HASURA_GRAPHQL_CORS_DOMAIN: "http://localhost:3000,ws://localhost:3000,http://localhost:8080,wss://localhost:8080,http://localhost:3001,ws://localhost:3001"
       HASURA_GRAPHQL_METADATA_DEFAULTS: '{"backend_configs":{"dataconnector":{"athena":{"uri":"http://data-connector-agent:8081/api/v1/athena"},"mariadb":{"uri":"http://data-connector-agent:8081/api/v1/mariadb"},"mysql8":{"uri":"http://data-connector-agent:8081/api/v1/mysql"},"oracle":{"uri":"http://data-connector-agent:8081/api/v1/oracle"},"snowflake":{"uri":"http://data-connector-agent:8081/api/v1/snowflake"}}}}'
       EXPRESS_API_URL: ${EXPRESS_API_URL}
     depends_on:
@@ -41,8 +43,10 @@ services:
     environment:
       QUARKUS_LOG_LEVEL: ERROR # FATAL, ERROR, WARN, INFO, DEBUG, TRACE
       ## https://quarkus.io/guides/opentelemetry#configuration-reference
-      QUARKUS_OPENTELEMETRY_ENABLED: "false"
-      HASURA_GRAPHQL_CORS_DOMAIN: "http://localhost:3000,http://localhost:8080,http://localhost:3001"
+      QUARKUS_OPENTELEMETRY_ENABLED: "true"
+      HASURA_GRAPHQL_ENABLE_TELEMETRY: "true"
+      HASURA_GRAPHQL_ENABLE_WEBSOCKET: "true"
+      HASURA_GRAPHQL_CORS_DOMAIN: "http://localhost:3000,ws://localhost:3000,http://localhost:8080,ws://localhost:8080,http://localhost:3001,ws://localhost:3001"
       ## QUARKUS_OPENTELEMETRY_TRACER_EXPORTER_OTLP_ENDPOINT: http://jaeger:4317
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8081/api/v1/athena/health"]

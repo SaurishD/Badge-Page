@@ -1,5 +1,3 @@
-import Layout from "../../components/layout/layout";
-
 import React, { useEffect, useState } from "react";
 import LastActivities from "../../components/ActivityComponent/index"
 import BadgeScroll from "../../components/BadgeScroll/BadgeScroll";
@@ -20,6 +18,7 @@ interface BadgesData {
 const Badges: React.FC = () => {
 
     const [badges, setBadges] = useState<Badge[]>([]);
+    const [activeBadge, setActiveBadge] = useState(0);
     const { loading, error, data } = useQuery<BadgesData, BadgesVars>(GET_BADGES, {
         variables: { userId:1 },
       });
@@ -42,8 +41,8 @@ const Badges: React.FC = () => {
     return (
             <>
             <LastActivities />
-            <BadgeCarousel badges={badges}/>
-            <BadgeScroll badges={badges}/>
+            <BadgeCarousel badges={badges} activeBadgeIndex={activeBadge}/>
+            <BadgeScroll badges={badges} setActiveBadge={setActiveBadge}/>
             </>
         
     );

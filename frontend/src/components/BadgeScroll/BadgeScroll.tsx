@@ -6,9 +6,10 @@ import BadgeCard from '../Cards/BadgeCard';
 
 type BadgeScrollProp = {
     badges: Badge[];
+    setActiveBadge: React.Dispatch<React.SetStateAction<number>>
 };
 
-const BadgeScroll: React.FC<BadgeScrollProp> = ({ badges } : BadgeScrollProp) => {
+const BadgeScroll: React.FC<BadgeScrollProp> = ({ badges, setActiveBadge } : BadgeScrollProp) => {
    
   
     return (
@@ -18,7 +19,7 @@ const BadgeScroll: React.FC<BadgeScrollProp> = ({ badges } : BadgeScrollProp) =>
         </Typography>
         <Box className='flex overflow-x-auto p-2 custom-scrollbar' >
           {badges.map((badge, index) => (
-            <BadgeCard badge={badge} isActive={false} />
+            <BadgeCard badge={badge} onClick={() => {setActiveBadge(index)}}/>
           ))}
         </Box>
         

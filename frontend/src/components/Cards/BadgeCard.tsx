@@ -3,10 +3,11 @@ import { Badge } from "../../types/badge.type";
 import { Box, styled, Typography } from "@mui/material";
 
 
-const BadgeItem = styled(Box)<{ isActive: boolean }>(({ theme, isActive }) => ({
+const BadgeItem = styled(Box)(({ theme }) => ({
 
     textAlign: 'center',
     minWidth: 'max-content',
+    cursor: 'pointer',
     '& .badge-icon': {
       width: 60,
       height: 60,
@@ -21,14 +22,14 @@ const BadgeItem = styled(Box)<{ isActive: boolean }>(({ theme, isActive }) => ({
 
   type BadgeCardProps = {
     badge: Badge;
-    isActive: boolean;
+    onClick?: () => void;
   };
 
-  const BadgeCard: React.FC<BadgeCardProps> = ({ badge, isActive}: BadgeCardProps) => {
+  const BadgeCard: React.FC<BadgeCardProps> = ({ badge, onClick }: BadgeCardProps) => {
     
   
     return (
-      <BadgeItem isActive={isActive} className="!text-text-primary !mr-1 !mb-1">
+      <BadgeItem className="!text-text-primary !mr-1 !mb-1" onClick={() =>{onClick && onClick();}} >
         
         <Box className='bg-elevation1 rounded-[8px]'>
             <div  className=" bg-elevation2 rounded-t-[8px] text-left  p-1 flex justify-between items-center w-full">

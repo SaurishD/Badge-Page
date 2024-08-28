@@ -14,7 +14,7 @@ import {
   Box,
   styled
 } from '@mui/material';
-import { SwapVert, ContentCopy } from '@mui/icons-material';
+import { SwapVert, OpenInNew } from '@mui/icons-material';
 import { Activity } from './DummyActivityData';
 
 type ActivityGridProps = {
@@ -45,7 +45,7 @@ const ActivityGrid: React.FC<ActivityGridProps> = ({ activities } : ActivityGrid
       <Typography variant="h6" gutterBottom component="div">
         Last Activities
       </Typography>
-      <StyledTableContainer className='rounded-[8px]'>
+      <StyledTableContainer className='rounded-[8px] max-h-[700px] custom-scrollbar'>
         <StyledTable sx={{ minWidth: 650 }} aria-label="activity table" >
           <TableHead className='bg-elevation1 text-text-secondary'>
             <TableRow>
@@ -76,8 +76,8 @@ const ActivityGrid: React.FC<ActivityGridProps> = ({ activities } : ActivityGrid
                 <TableCell align="right">
                   <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>
                     {activity.txid}
-                    <IconButton size="small" sx={{ ml: 1 }}>
-                      <ContentCopy fontSize="small" />
+                    <IconButton size="small" sx={{ ml: 1 }} className='!text-text-primary'>
+                      <OpenInNew fontSize="small" />
                     </IconButton>
                   </Box>
                 </TableCell>

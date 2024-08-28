@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Slider from "react-slick";
 import { Box, Typography, styled, IconButton, Button } from '@mui/material';
 import { ChevronLeft, ChevronRight } from '@mui/icons-material';
@@ -35,11 +35,15 @@ const ArrowButton = styled(Button)(({ theme }) => ({
   };
 
 
-const BadgeCarousel: React.FC<{ badges: Badge[] }> = ({ badges }) => {
+const BadgeCarousel: React.FC<{ badges: Badge[], activeBadgeIndex: number }> = ({ badges, activeBadgeIndex } : { badges: Badge[], activeBadgeIndex: number }) => {
     const [activeSlide, setActiveSlide] = useState(0);
+    const sliderRef = useRef<Slider>(null)
     useEffect(() => {
-      console.log("BadgeCarousel", badges);
-    } , []);
+      if(sliderRef.current){
+        sliderRef.current.slickGoTo(activeBadgeIndex);
+        setActiveSlide(activeBadgeIndex);
+      }
+    } , [activeBadgeIndex]);
 
     const settings = {
       className: "center",
@@ -69,7 +73,7 @@ const BadgeCarousel: React.FC<{ badges: Badge[] }> = ({ badges }) => {
       ]
     };
   
-    const activeBadge = badges[activeSlide];
+    const activeBadge = badges[activeBadgeIndex];
     const completedActions = activeBadge ? activeBadge.actions.filter(action => action.completeStatus).length : 0;
     const totalActions = activeBadge ? activeBadge.actions.length :0;
     // const progress = (completedActions / totalActions) * 100;
@@ -80,7 +84,7 @@ const BadgeCarousel: React.FC<{ badges: Badge[] }> = ({ badges }) => {
         <Typography variant="h6" gutterBottom sx={{ mb: 3 }}>
           Badges
         </Typography>
-        <Slider {...settings}>
+        <Slider ref={sliderRef} {...settings}>
           {badges.map((badge, index) => (
            <CarouselCard key={index} badge={badge} isActive={index == activeSlide} />
           ))}
