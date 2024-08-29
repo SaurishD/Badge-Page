@@ -7,6 +7,7 @@ import "slick-carousel/slick/slick-theme.css";
 import { Badge } from '../../types/badge.type';
 import ActionCards from './ActionCards/ActionCards';
 import CarouselCard from '../Cards/CarouselCard';
+import { set } from 'lodash';
 
 
 const ArrowButton = styled(Button)(({ theme }) => ({
@@ -37,11 +38,14 @@ const ArrowButton = styled(Button)(({ theme }) => ({
 
 const BadgeCarousel: React.FC<{ badges: Badge[], activeBadgeIndex: number }> = ({ badges, activeBadgeIndex } : { badges: Badge[], activeBadgeIndex: number }) => {
     const [activeSlide, setActiveSlide] = useState(0);
+    const [activeBadge, setActiveBadge] = useState<Badge | null>(null);
     const sliderRef = useRef<Slider>(null)
+    
     useEffect(() => {
       if(sliderRef.current){
         sliderRef.current.slickGoTo(activeBadgeIndex);
-        setActiveSlide(activeBadgeIndex);
+        setActiveBadge(badges[activeBadgeIndex]);
+        
       }
     } , [activeBadgeIndex]);
 
@@ -52,7 +56,7 @@ const BadgeCarousel: React.FC<{ badges: Badge[], activeBadgeIndex: number }> = (
       centerPadding: "60px",
       slidesToShow: 5,
       speed: 500,
-      beforeChange: (current: number, next: number) => setActiveSlide(next),
+      beforeChange: (current: number, next: number) => {setActiveSlide(next); setActiveBadge(badges[next])},
       prevArrow: <PrevArrow />,
       nextArrow: <NextArrow />,
       responsive: [
@@ -73,7 +77,6 @@ const BadgeCarousel: React.FC<{ badges: Badge[], activeBadgeIndex: number }> = (
       ]
     };
   
-    const activeBadge = badges[activeBadgeIndex];
     const completedActions = activeBadge ? activeBadge.actions.filter(action => action.completeStatus).length : 0;
     const totalActions = activeBadge ? activeBadge.actions.length :0;
     // const progress = (completedActions / totalActions) * 100;

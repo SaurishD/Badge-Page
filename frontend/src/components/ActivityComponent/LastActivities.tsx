@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import  ActivityGrid  from './ActivityGrid/LastActivitiesGrid';
-import { Activity, dummyActivities } from './ActivityGrid/DummyActivityData';
+import { Activity } from '../../types/activity.type';
 import { useQuery, useSubscription } from '@apollo/client';
 import { SUBSCRIBE_ACTIVITIES } from '../../queries/activities-query';
 
@@ -15,7 +15,7 @@ interface ActivityVars {
 const LastActivities: React.FC = () => {
     const [activityData, setActivityData] = useState<Activity[]>([]);
 
-    const { loading, error, data } = useQuery<ActivityData, ActivityVars>(SUBSCRIBE_ACTIVITIES, {variables: {userId: 1}});
+    const { loading, error, data } = useSubscription<ActivityData, ActivityVars>(SUBSCRIBE_ACTIVITIES, {variables: {userId: 1}});
 
     useEffect(() => {
         console.log("LastActivities page");

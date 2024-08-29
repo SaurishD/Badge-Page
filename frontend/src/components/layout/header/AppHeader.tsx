@@ -10,11 +10,53 @@ import { Box } from '@mui/material';
 
 const { Header } = Layout;
 
+type NavItem = {
+  path: string;
+  label: string;
+};
+
+const navItems: NavItem[] = [
+  { path: '/dashboard', label: 'Dashboard' },
+  { path: '/tasks', label: 'Tasks' },
+  { path: '/badges', label: 'Badges' },
+  { path: '/leaderboard', label: 'Leaderboard' },
+  { path: '/connections', label: 'Connections' },
+];
+
 
 const AppHeader: React.FC = () => {
-  const navigate = useNavigate();
+  const [isMobile, setIsMobile] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [activeTab, setActiveTab] = useState<string>('/badges');
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
 
-  
+    handleResize();
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+  const navigateHook = useNavigate();
+
+  const navigate = (path: string) => {
+    console.log(`Navigating to ${path}`);
+    navigateHook(path);
+    setActiveTab(path);
+    setIsMenuOpen(false);
+    // Implement your navigation logic here
+  };
+
+  const NavItems = () => {
+   return ( <>
+        {navItems.map((item) => (
+          <Button type="link" onClick={() => navigate(item.path)} className={item.path == activeTab ? 'text-success-elevation2' :'text-text-primary'}>{item.label}</Button>
+        ))}
+    </>)
+  }
   return (
     <Header className='bg-primary-background text-text-primary hover:bg-primary-background'>
       <Flex justify="space-between" align="center">
@@ -24,14 +66,22 @@ const AppHeader: React.FC = () => {
           Logo
         </Button>
       </div>
-      <div>
+      {isMobile ? (
+          <div>
+            <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="text-2xl">
+              ☰
+            </button>
+            {isMenuOpen && (
+              <nav className="absolute top-16 right-0 bg-blue-600 p-4 w-48">
+                <NavItems/>
+              </nav>
+            )}
+          </div>
+        ) :
+      (<div>
         {/* Navigation Buttons */}
-        <Button type="link" onClick={() => navigate(PATHS.dashboard())} className='text-text-primary'>Dashboard</Button>
-        <Button type="link" onClick={() => navigate(PATHS.tasks())} className='text-text-primary'>Tasks</Button>
-        <Button type="link" onClick={() => navigate(PATHS.badges())} className='text-text-primary'>Badges</Button>
-        <Button type="link" onClick={() => navigate(PATHS.leaderboard())} className='text-text-primary'>Leaderboard</Button>
-        <Button type="link" onClick={() => navigate(PATHS.connections())} className='text-text-primary'>Connections</Button>
-      </div>
+        <NavItems />
+        </div>)}
       <div className='flex item-center'>
         {/* Login/Signin Buttons */}
         <Button type="primary" className='bg-primary-background rounded-[24px] h-10 mr-2 border-1 border-success-elevation2'>How It Works</Button>

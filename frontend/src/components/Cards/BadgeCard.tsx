@@ -26,21 +26,22 @@ const BadgeItem = styled(Box)(({ theme }) => ({
   };
 
   const BadgeCard: React.FC<BadgeCardProps> = ({ badge, onClick }: BadgeCardProps) => {
-    
+    const completedActions = badge.actions.filter((action) => action.completeStatus).length;
+    const totalActions = badge.actions.length;
   
     return (
       <BadgeItem className="!text-text-primary !mr-1 !mb-1" onClick={() =>{onClick && onClick();}} >
         
-        <Box className='bg-elevation1 rounded-[8px]'>
+        <Box className={(completedActions==totalActions ? 'border-text-success' : 'border-elevation3') + ' border bg-elevation1 rounded-[8px] min-w-20'}>
             <div  className=" bg-elevation2 rounded-t-[8px] text-left  p-1 flex justify-between items-center w-full">
-                <div className="text-[13px]">
+                <div className="text-sm ">
                     {badge.title}
                 </div>
-                <div className="text-right text-[11px] text-text-secondary">
+                <div className="text-right text-xs text-text-secondary">
                     {badge.actions.length} actions
                 </div>
             </div>
-            <div className="badge-icon pt-2 pb-2">
+            <div className="badge-icon pt-2 pb-2 mr-4 ml-4">
             {badge.icon}
             </div>
             <div  className="badge-points bg-success-elevation text-text-success rounded-b-[8px] pt-1 pb-1 font-medium text-sm">

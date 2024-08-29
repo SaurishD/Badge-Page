@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Flex, Layout, notification } from 'antd';
+import { Button, Flex, Layout } from 'antd';
 import { DiscordOutlined, GithubOutlined, XOutlined } from '@ant-design/icons';
 import { Box } from "@mui/material";
 

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import LastActivities from "../../components/ActivityComponent/index"
-import BadgeScroll from "../../components/BadgeScroll/BadgeScroll";
-import BadgeCarousel from "../../components/BadgeCarrosoul/BadgeCarrosoul";
-import { GET_BADGES } from "../../queries/badge-list.query";
-import { Badge } from "../../types/badge.type";
+import LastActivities from "../components/ActivityComponent/LastActivities"
+import BadgeScroll from "../components/BadgeScroll/BadgeScroll";
+import BadgeCarousel from "../components/BadgeCarousel/BadgeCarousel";
+import { GET_BADGES } from "../queries/badge-list.query";
+import { Badge } from "../types/badge.type";
 import { useQuery } from "@apollo/client";
 
 

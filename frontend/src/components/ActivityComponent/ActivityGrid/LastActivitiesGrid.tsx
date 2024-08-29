@@ -15,7 +15,7 @@ import {
   styled
 } from '@mui/material';
 import { SwapVert, OpenInNew } from '@mui/icons-material';
-import { Activity } from './DummyActivityData';
+import { Activity } from '../../../types/activity.type';
 
 type ActivityGridProps = {
     activities: Activity[];
@@ -71,7 +71,7 @@ const ActivityGrid: React.FC<ActivityGridProps> = ({ activities } : ActivityGrid
                     {activity.type}
                   </Box>
                 </TableCell>
-                <TableCell align="right"  className='!text-right' ><Box className='bg-success-elevation p-1 text-text-success rounded-[16px] w-fit'>+{activity.points}</Box></TableCell>
+                <TableCell align="right"  className='!text-right' ><div className='bg-success-elevation p-1 text-text-success rounded-[16px] w-fit ml-auto'>+{activity.points}</div></TableCell>
                 <TableCell align="right">{activity.date}</TableCell>
                 <TableCell align="right">
                   <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>
